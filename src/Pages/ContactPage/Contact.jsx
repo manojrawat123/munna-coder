@@ -8,6 +8,7 @@ import { CircularProgress } from "@mui/material";
 import SocialIcons from "../../components/SocialMedia/SocialMedia";
 import { ArrowBack } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -53,7 +54,7 @@ const Contact = () => {
               onSubmit={(values, { setSubmitting, resetForm }) => {
                 setIsLoading(true);
                 axios
-                  .post("http://localhost:8000/contact/", {
+                  .post(`${API_BASE_URL}/contact/`, {
                     name: values.name,
                     email: values.email,
                     phone: values.phone,

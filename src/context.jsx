@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { createContext, useEffect, useState } from "react";
 import { API_BASE_URL } from "./config";
+import { steps } from "./data";
 
 export const DataContext = createContext();
 
@@ -47,18 +48,29 @@ export const DataProviderFunc = ({ children }) => {
       });
   };
 
+
+  
+  
   // End OF lead Function
-  return (
+return (
     <DataContext.Provider
       value={{
         my_project_func,
         my_projects,
         selectedProject,
         paidProject,
-        collegeProject
+        collegeProject,
+        PostChatbotData
       }}
-    >
+      >
       {children}
     </DataContext.Provider>
   );
 };
+
+
+const PostChatbotData = ()=>{
+  console.log(steps);
+}
+
+export { PostChatbotData }

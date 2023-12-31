@@ -13,10 +13,11 @@ const MyAbout = () => {
 
   return (
     <div className="bg-gray-100 py-12 bg-image-container">
-      <div className="container mx-auto">
+      <div className="mx-auto">
         <div className="justify-center">
-          <div className=" p-4">
-          <div className="text-white border border-solid border-white rounded-xl mb-4 ">
+          <div className=" p-4 grid grid-cols-1 md:grid-cols-2 md:gap-10">
+
+          <div className="text-white border border-solid border-white rounded-xl mb-4 md:col-span-1">
               <h2 className="text-xl font-bold  bg-gray-700 text-white py-2 px-4 rounded-t-xl text-center shadow-lg border border-solid border-white">
               Hello, I'm Manoj Rawat
             </h2>
@@ -26,7 +27,7 @@ const MyAbout = () => {
               Diploma from <strong>Coding Bytes</strong>
             </p>
             </div>
-            <div className="text-white border border-solid border-white rounded-xl mb-4 ">
+            <div className="text-white border border-solid border-white rounded-xl mb-4 md:col-span-1">
               <h1 className="text-xl font-bold  bg-gray-700 text-white py-2 px-4 rounded-t-xl text-center shadow-lg border border-solid border-white">
                 My Skills
               </h1>
@@ -180,7 +181,7 @@ const MyAbout = () => {
               </ul>
             </div>
 
-            <div className="text-white border border-solid border-white rounded-xl mb-4 ">
+            <div className="text-white border border-solid border-white rounded-xl mb-4 md:col-span-2">
               <h1 className="text-xl font-bold  bg-gray-700 text-white py-2 px-4 rounded-t-xl text-center shadow-lg border border-solid border-white">
                 My Experience
               </h1>
@@ -195,6 +196,8 @@ const MyAbout = () => {
                 })}
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
