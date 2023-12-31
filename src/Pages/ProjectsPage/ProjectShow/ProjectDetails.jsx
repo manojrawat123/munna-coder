@@ -3,6 +3,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { DataContext } from "../../../context";
 import { Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
 
 const ProjectDetail = () => {
   const { selectedProject, my_project_func } = useContext(DataContext);
