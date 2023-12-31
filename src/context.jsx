@@ -16,7 +16,7 @@ export const DataProviderFunc = ({ children }) => {
       .get(`${API_BASE_URL}/projects/`)
       .then((values) => {
         setMyProjects(values.data);
-
+        console.log(values.data);
         if (paid = true){
 
           setPaidProject(
