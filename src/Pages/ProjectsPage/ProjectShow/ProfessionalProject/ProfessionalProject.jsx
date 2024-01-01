@@ -23,7 +23,7 @@ const ProfessionalProject = () => {
           key={project.id}
           className="mb-4 p-2 border border-gray-300 text-center bg-gray-100 shadow-2xl rounded-xl "
         >
-          <h2 className="text-xs font-bold mb-2 text-center">
+          <h2 className="text-xs font-bold mb-2 text-center text-gray-700">
             {project.title}
           </h2>
           <div className="flex items-center justify-center col-span-2">
