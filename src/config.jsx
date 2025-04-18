@@ -1,5 +1,4 @@
+export const API_BASE_URL = "https://notessharingbackend.onrender.com";
+export const API_BASE_URL2 = "https://munnacoders.pythonanywhere.com";
 
-
-const API_BASE_URL = 'https://munnapassword.pythonanywhere.com'
-
-export { API_BASE_URL }
+export const FRONTEND_BASE_URL = 'http://localhost:5173';

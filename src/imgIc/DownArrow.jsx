@@ -1,0 +1,12 @@
+import React from 'react'
+
+const DownArrow = () => {
+    return (
+        <span className="flex items-center"><span class="nFghBOe T68oVsb" style={{
+            width:"12px",
+            height:"12px"}
+        } aria-hidden="true"><svg width="12" height="16" viewBox="0 0 14 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill"><path d="M.19 1.272.81.653a.375.375 0 0 1 .53 0L7 6.3 12.66.653a.375.375 0 0 1 .53 0l.62.62a.375.375 0 0 1 0 .53L7.264 8.346a.375.375 0 0 1-.53 0L.19 1.802a.375.375 0 0 1 0-.53Z"></path></svg></span></span>
+     );
+}
+
+export default DownArrow;

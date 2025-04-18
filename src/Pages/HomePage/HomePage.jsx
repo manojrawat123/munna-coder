@@ -1,51 +1,29 @@
-import React, { useEffect } from 'react'
-import HomePageLap from './HomePageLap'
-import HomePagePhone from './HomePagePhone'
-import axios from 'axios'
-import { API_BASE_URL } from '../../config'
+import React, { useContext, useEffect, useState } from 'react'
+import WelcomePage from './HomeSection/WelcomePage';
+import SliderService from './SliderSection/SliderService';
+import ChatbotItem from '../../component/Chatbot/Chatbot';
+import { getAuthRequest, getRequest } from '../../SelfModule/api/Apis';
+import { DataContext } from '../../context';
+import Loader from '../../component/Module/PageLoader/PageLoader';
 
 const HomePage = () => {
+  const [suggetion, setSuggetions] = useState();
+  const [search, setSearch] = useState();
+  const { getDataParams } = useContext(DataContext);
 
-  const userTracerFunc = ()=>{
-    axios.get("https://api.ipify.org").then((value)=>{
-      axios.post(`${API_BASE_URL}/visitor/`, {
-        sup_id_adress: value.data,
-        website_accessed: "User Found"
-      }).then((response)=>{
+  useEffect(() => {
+    getDataParams('search', setSuggetions, { search: search });
+  }, [search]);
 
-      }).catch((err)=>{
-        
-      })
-    }).catch((err)=>{
-      console.log(err);
-      axios.post(`${API_BASE_URL}/visitor/`, {
-        website_accessed: "User Found"
-      }).then((response)=>{
-        
-      }).catch((err)=>{
-        axios.post(`${API_BASE_URL}/visitor/`, {
-          website_accessed: "User Found"
-        })
-      })
-    })
+  if (!suggetion) {
+    return <Loader />
   }
-
-  useEffect(()=>{
-    userTracerFunc();
-  },[])
-
-
-
   return (
     <>
-    <div className='hidden md:block'>
-    <HomePageLap />
-    </div>
-    <div className='md:hidden block'>
-    <HomePagePhone />
-    </div>
+      <WelcomePage data={suggetion} setSearch={setSearch} search={search} />
+      <SliderService />
     </>
-  )
+  );
 }
 
 export default HomePage

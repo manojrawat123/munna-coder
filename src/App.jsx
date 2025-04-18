@@ -1,30 +1,57 @@
-import { useState } from 'react'
-import "./index.css"
-import Navbar from './components/MyNavbar'
-import { Route, Routes } from 'react-router-dom'
-import HomePage from './Pages/HomePage/HomePage';
-import Contact from './Pages/ContactPage/Contact';
-import MyChatbot from './components/ChatBot/MyChatBot';
-import AllProject from './Pages/ProjectsPage/ProjectsDetails/AllProjects';
-import ProjectDetailPage from './Pages/ProjectsPage/ProjectShow/ProjectDetails';
-import MyAbout from './Pages/AboutPage/About';
-
+import { Route, Routes, useNavigate } from "react-router-dom";
+import MyLogin from "./pages/auth/LoginPage/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage/RegisterPage";
+import MyNavbar from "./component/Navbar/Navbar";
+import HomePage from "./pages/HomePage/HomePage";
+import ProtectedRoute from "./component/ProtectedRoutes/ProtectedRoute";
+import { useEffect } from "react";
+import UploadTopicForm from "./pages/ContentUploadForm/UploadTopicForm/UploadTopicForm";
+import uploadDigitalNotes from "./pages/ContentUploadForm/UploadDigitalNotes/UploadDigitalNotes";
+import ChatBot from "./pages/HomePage/HomeSection/ChatBot";
+import DisplayContent from "./pages/DisplayContent/DisplayContent";
+import DisplayTopicDetails from "./pages/DisplayTopicDetails/DisplayTopicDetails";
+import 'react-quill/dist/quill.snow.css';
+import QuestionUploadForm from "./pages/ContentUploadForm/QuestionUploadForm/QuestionUploadForm";
 function App() {
-
-  const token = true
   return (
     <>
-    {token ? <Navbar />: null}
+      <div className="grid grid-cols-4">
+        <div className="col-span-4">
+          <MyNavbar />
+        </div>
+        <div className="mt-[4rem] overflow-y-auto col-span-4 " style={{
+          height: "calc(100vh - 4rem)"
+        }}>
+          <div className="">
+            <ChatBot />
+          </div>
+          <Routes>
+            <Route path="" Component={ProtectedRoute}>
+              <Route path="" Component={HomePage} />
+            </Route>
+            <Route path="" Component={ProtectedRoute}>
+              <Route path="/notes_upload" Component={UploadTopicForm} />
+            </Route>
+            <Route path="" Component={ProtectedRoute}>
+              <Route path="/digital_notes" Component={uploadDigitalNotes} />
+            </Route>
+            <Route path="" Component={ProtectedRoute}>
+              <Route path="/upload_question" Component={QuestionUploadForm} />
+            </Route>
+            <Route path="" Component={ProtectedRoute}>
+              <Route path="/search/:s_categories/:search_id" Component={DisplayContent} />
+            </Route>
 
-    <Routes>
-      <Route path={"/"} Component={HomePage} />
-      <Route path={"/contact"} Component={Contact} />
-      <Route path={"/project"} Component={AllProject} />
-      <Route path={"/project/:id"} Component={ProjectDetailPage} />
-      <Route path={"/about"} Component={MyAbout} />
-    </Routes>
-
-     <MyChatbot className="w-full"/>
+            {/* Content Route Management */}
+            <Route path="" Component={ProtectedRoute}>
+              <Route path='/topic-search/:topic_name/:categoery_id/:search_id' Component={DisplayTopicDetails} />
+            </Route>
+            {/* Content Route Management End */}
+            <Route path="/login" Component={MyLogin} />
+            <Route path="/register" Component={RegisterPage} />
+          </Routes>
+        </div>
+      </div>
     </>
   )
 }

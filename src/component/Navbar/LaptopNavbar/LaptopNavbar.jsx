@@ -1,0 +1,146 @@
+import React, { useState, useEffect, useContext } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import DownArrow from "../../../imgIc/DownArrow";
+import { DataContext } from "../../../context";
+import ButtonLoader from "../../Module/buttonLoader/buttonLoader";
+
+const LaptopNavbar = ({ setIsLoginPopUp, setRegisterPopUp, navArr }) => {
+  const location = useLocation();
+  const [submenuIndex, setSubmenuIndex] = useState();
+  const navigate = useNavigate();
+  const { logoutFunc, logoutBtn, setAskContentPost, } = useContext(DataContext);
+
+  useEffect(() => {
+    document.addEventListener("click", () => {
+      setSubmenuIndex("");
+    });
+  }, []);
+
+  return (
+    <div className="p-[20px] flex fixed w-[100vw] top-[0px] h-[4rem] shadow items-center bg-white gap-6 z-[60]">
+      <div className="font-bold text-2xl text-gray-700 mr-auto italic">
+        <h1 className=" rounded-full inline-block">
+          Mannoj <span className="text-green-500">*</span>
+        </h1>
+      </div>
+      {navArr.map((e, index) => (
+        <div
+          key={index}
+          className={`relative font-bold  flex  items-center text-[15px]  ${e.link == location.pathname ? "text-gray-900 " : "text-gray-600"
+            }`}
+        >
+          {e.options == undefined ? (
+            <button
+              onClick={() => {
+                if (e.link == "login") {
+                  setIsLoginPopUp(true);
+                } else if (e.link == "register") {
+                  setRegisterPopUp(true);
+                } else if (e.lable == 'Upload') {
+                  setAskContentPost(true);
+                }
+                else {
+                  navigate(e.link);
+                }
+              }}
+              to={e.link}
+              className={`py-2 px-4 rounded ${e.cssClass == "" ? "hover:bg-gray-200  " : e.cssClass
+                } `}
+            >
+              {e.lable} 
+            </button>
+          ) : (
+            <button
+              onClick={(event) => {
+                event.stopPropagation();
+                if (submenuIndex != index) {
+                  setSubmenuIndex(index);
+                } else {
+                  setSubmenuIndex("");
+                }
+              }}
+              className={" gap-2 flex items-center " + e.cssClass}
+            >
+              {e.lable}{" "}
+              {e.link != "profile" ? (
+                <span
+                  className={`${submenuIndex == index ? "rotate-180 translate-y-1" : ""
+                    }`}
+                >
+                  <DownArrow />
+                </span>
+              ) : (
+                ""
+              )}
+            </button>
+          )}
+          {e.options != undefined ? (
+            <div
+              className={`${index == submenuIndex ? "flex" : "hidden"
+                } absolute top-8 right-1 border rounded bg-white p-6 items-center w-[${e.w ? e.w : ""
+                }] `}
+              onClick={(event) => {
+                event.stopPropagation();
+                setSubmenuIndex(index);
+              }}
+            >
+              <div>
+                {e.options?.map((sub_element, index) => {
+                  return (
+                    <>
+                      {sub_element.type == "btn" ? (
+                        <button
+                          onClick={() => {
+                            if (sub_element.heading == "Logout") {
+                              logoutFunc();
+                            }
+                            else {
+                              navigate(sub_element.link);
+                            }
+                          }}
+                          className={`${sub_element?.css} my-3 border py-2 flex rounded items-center justify-center gap-4 px-20 w-full`}
+                        >
+                          {sub_element.heading == "Logout" ? (
+                            logoutBtn ? (
+                              <ButtonLoader color="white" size="21px" />
+                            ) : (
+                              <>
+                                {" "}
+                                {sub_element.img} {sub_element.heading}{" "}
+                              </>
+                            )
+                          ) : (
+                            <>
+                              {sub_element.img} {sub_element.heading}
+                            </>
+                          )}
+                        </button>
+                      ) : (
+                        <div
+                          className="flex gap-4 border rounded p-2 mb-2 items-center cursor-pointer"
+                          onClick={(event) => {
+                            navigate(sub_element.link);
+                          }}
+                        >
+                          {sub_element.img}{" "}
+                          <div className="">
+                            <div className="text-md">{sub_element.heading}</div>
+                            <div className="text-sm">
+                              {sub_element.description}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default LaptopNavbar;
